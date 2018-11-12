@@ -11,6 +11,8 @@
   "author": "Microsoft Corp.",
   "license": "UNLICENSED",
   "dependencies": {
+    "@types/moment": "^2.13.0",
+    "moment": "^2.22.2",
     "react": "^16.6.1",
     "react-dom": "^16.6.1"
   },
