@@ -1,7 +1,10 @@
 // You MUST import React when using any JSX (e.g. <Component>) markup because when it's compiled, it gets turned into
 // React.createElement(Component, properties, children).
 import * as React from "react";
-import FormattedTime from "./FormattedTime";
+
+// Create paired context Provider and Consumer components. These components work together so that anywhere the Consumer
+// is used, it will recieve it's value from the nearest parent Provider.
+const {Provider, Consumer} = React.createContext(0);
 
 class Clock extends React.Component {
   // The constructor is passed props (and context, but we don't have to worry about it most of the time).
@@ -19,8 +22,15 @@ class Clock extends React.Component {
   
   // This is called once initially, and then repeatedly any time the state (or properties change).
   render() {
-    // This component no longer knows about formatting times. It delegates that duty to the <FormattedTime> component.
-    return <FormattedTime timestamp={this.state.timestamp}/>;
+    const { children } = this.props;
+
+    // This component no longer knows about formatting times or even what children it's rendering. It only provides a
+    // context to any children that it has. It is now completely declarative.
+    return (
+      <Provider value={this.state.timestamp}>
+        {children}
+      </Provider>
+    );
   }
 
   // This is called ONCE, after the first call to render()
@@ -46,5 +56,9 @@ class Clock extends React.Component {
     });
   }
 }
+
+// Assign the context Consumer component to a static property on the Clock component, so that "Clock-aware" components
+// can consume the context using the <Clock.Consumer> component.
+Clock.Consumer = Consumer;
 
 export default Clock;
