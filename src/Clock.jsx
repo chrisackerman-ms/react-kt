@@ -1,7 +1,7 @@
 // You MUST import React when using any JSX (e.g. <Component>) markup because when it's compiled, it gets turned into
 // React.createElement(Component, properties, children).
 import * as React from "react";
-import moment from "moment";
+import FormattedTime from "./FormattedTime";
 
 class Clock extends React.Component {
   // The constructor is passed props (and context, but we don't have to worry about it most of the time).
@@ -10,21 +10,17 @@ class Clock extends React.Component {
     // passing them to the parent contructor, React will yell at you.
     super(props);
 
-    // Initialize the component's state. Without this, the comonent would probably display "undefined" for the first
-    // second, because this.state.time will be undefined the first time render is called. This is the ONLY time you
-    // can modify the state directly (without using this.setState()).
+    // Initialize the component's state. This is the ONLY time you can modify the state directly (without using
+    // this.setState()).
     this.state = {
-      time: this._getTime()
+      timestamp: Date.now()
     };
   }
   
   // This is called once initially, and then repeatedly any time the state (or properties change).
   render() {
-    return (
-      <React.Fragment>
-        <span>Current Time = </span>{this.state.time}
-      </React.Fragment>
-    );
+    // This component no longer knows about formatting times. It delegates that duty to the <FormattedTime> component.
+    return <FormattedTime timestamp={this.state.timestamp}/>;
   }
 
   // This is called ONCE, after the first call to render()
@@ -45,13 +41,9 @@ class Clock extends React.Component {
     this.setState(state => {
       return {
         ...state,
-        time: this._getTime()
+        timestamp: Date.now()
       }
     });
-  }
-
-  _getTime() {
-    return moment().format("h:mm:ss a");
   }
 }
 
