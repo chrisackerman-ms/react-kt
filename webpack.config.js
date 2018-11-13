@@ -50,6 +50,22 @@ module.exports = {
           // Run the raw source through the Babel compiler.
           { loader: "babel-loader", options: { babelrc: true } }
         ]
+      },
+      {
+        // Match CSS files.
+        test: /\.css$/,
+        use: [
+          // This loader accepts the output from the next loader (it wraps the next loader), and uses it to create a
+          // <style> tag on your page.
+          "style-loader",
+
+          // This loader reads CSS into an intermediate data structure. If you didn't use the above "style-loader" with
+          // it, you would get this raw data structure as the result of your import statement, but no actual css would
+          // be applied to the page.
+          "css-loader",
+
+          // You could use an additional loader (e.g. Sass) to accept higher order style languages.
+        ]
       }
     ]
   },
