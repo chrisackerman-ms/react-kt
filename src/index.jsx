@@ -1,24 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import moment from "moment";
+import Clock from "./Clock";
 
-// Rendering once immediately.
-render();
-
-// Rendering repeatedly on a 1 second interval.
-setInterval(() => {
-  render();
-}, 1000);
-
-function render() {
-  // Using the "moment" module to format the current time.
-  const timeString = moment().format("h:mm:ss a");
-
-  ReactDOM.render(
-    // Using a fragment to render more than two top level nodes.
-    <React.Fragment>
-      <span>Current Time = </span>{timeString}
-    </React.Fragment>,
-    document.getElementById('root')
-  );
-}
+// Calling render once is normal React usage pattern, even though it's valid to call it repeatedly.
+ReactDOM.render(
+  // We have encapsulated our clock. We can use as many clocks, as many times, as we want, without worrying about
+  // re-rendering the application.
+  <Clock/>,
+  document.getElementById('root')
+);
