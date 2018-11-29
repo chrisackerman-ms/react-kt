@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import "./FormattedTime.css";
 
 // This is a function component. It has no internal state. It renders only what it received as properties.
@@ -16,9 +16,6 @@ function FormattedTime({ clock }) {
   );
 }
 
-// We're now wrapping the component before export, using the inject() and observer() HOCs (high order components) which
-// are provided by mobx-react.
-// * The observer HOC rerenders the component if a consumed observable changes.
-// * The inject HOC passes the store by name, provided by a parent mobx-react <Provider> component, to the component as
-//   a property with the same name. This is why the FormattedTime component above accepts a "clock" property.
+// Decorate the component before export using the observer() decorator which is provided by mobx-react.
+// * The observer decorator modifies the component so that it re-renders if a referenced observable changes.
 export default inject("clock")(observer(FormattedTime));

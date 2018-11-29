@@ -1,0 +1,12 @@
+.todoList {
+  list-style: none;
+  padding-left: 1em;
+}
+
+.todoList-empty {
+  font-style: italic;
+}
+
+.todoList-item-checked {
+  text-decoration: line-through;
+}
